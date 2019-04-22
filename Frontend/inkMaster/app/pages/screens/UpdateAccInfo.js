@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {
-  AsyncStorage,
   StyleSheet,
   Text,
   View,
   StatusBar ,
   TouchableOpacity
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { 
   createStackNavigator, 

@@ -3,10 +3,10 @@ import {
   StyleSheet,
   Text,
   TextInput,  
-  AsyncStorage,
   View,
   TouchableOpacity
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import Logo from 'inkMaster/app/components/Logo.js';
 

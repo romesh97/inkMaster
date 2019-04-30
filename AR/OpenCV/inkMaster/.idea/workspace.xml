@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bc10ee2c-fc2c-47e5-99e4-d84b27b982a9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-    </list>
+    <list default="true" id="bc10ee2c-fc2c-47e5-99e4-d84b27b982a9" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -322,7 +320,7 @@
       <workItem from="1556611757585" duration="1047000" />
       <workItem from="1556620962770" duration="575000" />
       <workItem from="1556631279394" duration="2898000" />
-      <workItem from="1556658381459" duration="2147000" />
+      <workItem from="1556658381459" duration="2201000" />
     </task>
     <task id="LOCAL-00001" summary="multi-scale tamplate matching method implemented for real-time WITH MORE THAN TEMPLATE">
       <created>1556602775783</created>
@@ -335,7 +333,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60562000" />
+    <option name="totallyTimeSpent" value="60616000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />

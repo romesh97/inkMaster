@@ -11,7 +11,7 @@ def main():
     for i in range(len(templates)):
         templates[i] = cv2.cvtColor(templates[i], cv2.COLOR_BGR2GRAY)
         templates[i] = cv2.Canny(templates[i], 50, 140)
-        templates[i] = cv2.GaussianBlur(templates[i],(5,5),0)
+        # templates[i] = cv2.medianBlur(templates[i], 15)
         templates[i] = imutils.resize(templates[i], width=50)
 
     (tH, tW) = templates[0].shape[:2]
@@ -52,7 +52,6 @@ def main():
             # detect edges in the resized, grayscale image and apply template
             # matching to find the template in the image
             edged = cv2.Canny(resized, 50, 160)
-            blurred = cv2.GaussianBlur(edged,(5,5),0)
 
             curr_max = 0
             index = 0
@@ -61,7 +60,7 @@ def main():
             # find the best match
             for i in range(len(templates)):
                 # perform matchtemplate
-                res = cv2.matchTemplate(blurred, templates[i], cv2.TM_CCOEFF)
+                res = cv2.matchTemplate(edged, templates[i], cv2.TM_CCOEFF)
                 # get the highest correlation value of the result
                 maxVal = res.max()
                 # if the correlation is highest thus far, store the value and index of template
@@ -85,11 +84,6 @@ def main():
         (_, maxLoc, r) = found
         (startX, startY) = (int(maxLoc[0] * r), int(maxLoc[1] * r))
         (endX, endY) = (int((maxLoc[0] + tW) * r), int((maxLoc[1] + tH) * r))
-
-        edgedd = cv2.Canny(frame, 50, 160)
-        blur = cv2.GaussianBlur(edgedd,(5,5),0)
-        cv2.imshow("Blurred", blur)
-        cv2.imshow("Edged", edgedd)
 
         # draw a bounding box around the detected result and display the image
         cv2.rectangle(frame, (startX, startY), (endX, endY), (0, 0, 255), 2)

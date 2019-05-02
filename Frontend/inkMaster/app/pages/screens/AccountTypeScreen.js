@@ -16,17 +16,21 @@ export default class Home extends React.Component {
     return (
       <View style={styles.container}>
           <TouchableOpacity style={styles.button}>
-             <Text style={styles.buttonText} onPress={this._showSignIn}>Artist</Text>
+             <Text style={styles.buttonText} onPress={this._showSignInArtist}>Artist</Text>
           </TouchableOpacity> 
           <TouchableOpacity style={styles.button}>
-             <Text style={styles.buttonText} onPress={this._showSignIn}>Customer</Text>
+             <Text style={styles.buttonText} onPress={this._showSignInCustomer}>Customer</Text>
           </TouchableOpacity> 
       </View>
     );
   }
 
-  _showSignIn = () => {
-      this.props.navigation.navigate('SignIn');
+  _showSignInArtist = () => {
+      this.props.navigation.navigate('SignIn', { type:'Artist' });
+  };
+
+  _showSignInCustomer = () => {
+      this.props.navigation.navigate('SignIn', { type:'Customer' });
   };
 
 }

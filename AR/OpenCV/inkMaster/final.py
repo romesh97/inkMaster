@@ -86,10 +86,52 @@ def main():
         (startX, startY) = (int(maxLoc[0] * r), int(maxLoc[1] * r))
         (endX, endY) = (int((maxLoc[0] + tW) * r), int((maxLoc[1] + tH) * r))
 
+        # Read source image.
+        im_src = cv2.imread("imagePath")
+        size = im_src.shape
+
+        # Create a vector of source points.
+        pts_src = np.array(
+            [
+                [0, 0],
+                [size[1] - 1, 0],
+                [size[1] - 1, size[0] - 1],
+                [0, size[0] - 1]
+            ], dtype=float
+        )
+
+        # Read destination image
+        im_dst = frame
+
+        # Get four corners of the billboard
+        pts_dst = np.array(
+            [
+                [startX, startY],
+                [endX, startY],
+                [endX, endY],
+                [startX, endY]
+            ]
+        )
+
+        # Calculate Homography between source and destination points
+        h, status = cv2.findHomography(pts_src, pts_dst)
+
+        # Warp source image
+        im_temp = cv2.warpPerspective(im_src, h, (im_dst.shape[1], im_dst.shape[0]))
+
+        # Black out polygonal area in destination image.
+        cv2.fillConvexPoly(im_dst, pts_dst.astype(int), 0, 16)
+
+        # Add warped source image to destination image.
+        im_dst = im_dst + im_temp
+
+
+
         edgedd = cv2.Canny(frame, 50, 160)
         blur = cv2.GaussianBlur(edgedd,(5,5),0)
         cv2.imshow("Blurred", blur)
-        cv2.imshow("Edged", edgedd)
+
+        cv2.imshow("Edged", im_dst)
 
         # draw a bounding box around the detected result and display the image
         cv2.rectangle(frame, (startX, startY), (endX, endY), (0, 0, 255), 2)

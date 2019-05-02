@@ -55,7 +55,7 @@ def main():
 
             # unpack the bookkeeping variable and compute the (x, y) coordinates
             # of the bounding box based on the resized ratio
-        print(found)
+        # print(found)
         if found is None:
             # just show only the frames if the template is not detected
             cv2.imshow(windowName, frame)
@@ -64,6 +64,7 @@ def main():
             (_, maxLoc, r) = found
             (startX, startY) = (int(maxLoc[0] * r), int(maxLoc[1] * r))
             (endX, endY) = (int((maxLoc[0] + tW) * r), int((maxLoc[1] + tH) * r))
+            print(startX, startY, endX, endY)
 
             # draw a bounding box around the detected result and display the image
             cv2.rectangle(frame, (startX, startY), (endX, endY), (0, 0, 255), 2)

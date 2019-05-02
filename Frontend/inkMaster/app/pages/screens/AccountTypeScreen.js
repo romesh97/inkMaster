@@ -19,22 +19,26 @@ export default class Home extends React.Component {
           <Text style={styles.primaryText}>I'm a tattoo enthusiast</Text>
           <Text style={styles.secondaryText}>Browse tattoos, preview a tattoo on your skin, book your next tattoo</Text>
           <TouchableOpacity style={styles.button}>
-             <Text style={styles.buttonText} onPress={this._showSignIn}>Choose</Text>
+             <Text style={styles.buttonText} onPress={this._showSignInCustomer}>Choose</Text>
           </TouchableOpacity>
         </View>
-          <View style={styles.container}>
+        <View style={styles.container}>
           <Text style={styles.primaryText}>I'm a tattoo artist</Text>
           <Text style={styles.secondaryText}>Showcase your art and get bookings from clients</Text>
           <TouchableOpacity style={styles.button}>
-             <Text style={styles.buttonText} onPress={this._showSignIn}>Choose</Text>
+             <Text style={styles.buttonText} onPress={this._showSignInArtist}>Choose</Text>
           </TouchableOpacity>
-      </View>
+        </View>
       </View>
     );
   }
 
-  _showSignIn = () => {
-      this.props.navigation.navigate('SignIn');
+  _showSignInArtist = () => {
+      this.props.navigation.navigate('SignIn', { type:'Artist' });
+  };
+
+  _showSignInCustomer = () => {
+      this.props.navigation.navigate('SignIn', { type:'Customer' });
   };
 
 }

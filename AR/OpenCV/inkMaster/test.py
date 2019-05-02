@@ -1,44 +1,28 @@
-import cv2
 import numpy as np
-import imutils
-MIN_MATCH_COUNT = 30
-
-detector = cv2.xfeatures2d.SIFT_create()
-FLANN_INDEX_KDITREE = 0
-flannParam = dict(algorithm=FLANN_INDEX_KDITREE,tree=5)
-flann = cv2.FlannBasedMatcher(flannParam,{})
-
-trainImg = cv2.imread("C:\\Users\\Manthika\\Desktop\\opencvtest\\templates\\template1.jpg", 0)
-# trainImg = imutils.resize(trainImg, width=50)
-trainKP, trainDesc = detector.detectAndCompute(trainImg,None)
-
-cam=cv2.VideoCapture(0)
-while True:
-    ret, QueryImgBGR=cam.read()
-    QueryImg=cv2.cvtColor(QueryImgBGR,cv2.COLOR_BGR2GRAY)
-    queryKP,queryDesc=detector.detectAndCompute(QueryImg,None)
-    matches=flann.knnMatch(queryDesc,trainDesc,k=2)
-
-    goodMatch=[]
-    for m,n in matches:
-        if(m.distance<0.75*n.distance):
-            goodMatch.append(m)
-    if(len(goodMatch)>MIN_MATCH_COUNT):
-        tp=[]
-        qp=[]
-        for m in goodMatch:
-            tp.append(trainKP[m.trainIdx].pt)
-            qp.append(queryKP[m.queryIdx].pt)
-        tp,qp=np.float32((tp,qp))
-        H,status=cv2.findHomography(tp,qp,cv2.RANSAC,3.0)
-        h,w=trainImg.shape
-        trainBorder=np.float32([[[0,0],[0,h-1],[w-1,h-1],[w-1,0]]])
-        queryBorder=cv2.perspectiveTransform(trainBorder,H)
-        cv2.polylines(QueryImgBGR,[np.int32(queryBorder)],True,(0,255,0),5)
-    else:
-        print("Not Enough match found- %d/%d"%(len(goodMatch),MIN_MATCH_COUNT))
-    cv2.imshow('result',QueryImgBGR)
-    if cv2.waitKey(10)==ord('q'):
-        break
-cam.release()
-cv2.destroyAllWindows()
+import cv2 as cv
+import matplotlib.pyplot as plt
+img1 = cv.imread("C:\\Users\\Manthika\\Desktop\\opencvtest\\main.jpg",cv.IMREAD_GRAYSCALE)          # queryImage
+img2 = cv.imread("C:\\Users\\Manthika\\Desktop\\opencvtest\\template.jpg",cv.IMREAD_GRAYSCALE) # trainImage
+# Initiate SIFT detector
+sift = cv.xfeatures2d.SIFT_create()
+# find the keypoints and descriptors with SIFT
+kp1, des1 = sift.detectAndCompute(img1,None)
+kp2, des2 = sift.detectAndCompute(img2,None)
+# FLANN parameters
+FLANN_INDEX_KDTREE = 1
+index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
+search_params = dict(checks=50)   # or pass empty dictionary
+flann = cv.FlannBasedMatcher(index_params,search_params)
+matches = flann.knnMatch(des1,des2,k=2)
+# Need to draw only good matches, so create a mask
+matchesMask = [[0,0] for i in range(len(matches))]
+# ratio test as per Lowe's paper
+for i,(m,n) in enumerate(matches):
+    if m.distance < 0.7*n.distance:
+        matchesMask[i]=[1,0]
+draw_params = dict(matchColor = (0,255,0),
+                   singlePointColor = (255,0,0),
+                   matchesMask = matchesMask,
+                   flags = cv.DrawMatchesFlags_DEFAULT)
+img3 = cv.drawMatchesKnn(img1,kp1,img2,kp2,matches,None,**draw_params)
+plt.imshow(img3,),plt.show()

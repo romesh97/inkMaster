@@ -97,10 +97,10 @@ def main():
         foreGroundImage = cv2.resize(foreGroundImage, dim)
 
         # Split png foreground image
-        a = foreGroundImage[:, :, 3]
+        b, g, r, a = cv2.split(foreGroundImage)
 
         # Save the foregroung RGB content into a single object
-        foreground = foreGroundImage[:, :, 0:3]
+        foreground = cv2.merge((b, g, r))
 
         # Save the alpha information into a single Mat
         alpha = cv2.merge((a, a, a))
@@ -118,16 +118,21 @@ def main():
         background = cv2.multiply(beta, background)
         outImage = cv2.add(foreground, background)
         outImage = outImage/255
+        cv2.imshow("outImage", outImage)
+        # outImage = outImage.astype(np.unit8)
         print(outImage.shape)
 
         data = outImage.copy()
         data = data / data.max()  # normalizes data in range 0 - 255
         data = 255 * data
         converted = data.astype(np.uint8)
+        cv2.imshow("converted", converted)
 
         # Read source image.
         im_src = converted.copy()
         size = im_src.shape
+        print(im_src.shape)
+        print(im_src.dtype)
 
         # Create a vector of source points.
         pts_src = np.array(
@@ -141,6 +146,7 @@ def main():
 
         # Read destination image
         im_dst = frame.copy()
+        cv2.imshow("im_dst", im_dst)
 
         # Create a vector of destination points.
         pts_dst = np.array(
@@ -164,7 +170,21 @@ def main():
         # Add warped source image to destination image.
         im_dst = im_dst + im_temp
 
+
         cv2.imshow("Final", im_dst)
+        cv2.imshow("frame2222", frame)
+
+
+        edgedd = cv2.Canny(frame, 50, 160)
+        blur = cv2.GaussianBlur(edgedd,(5,5),0)
+        cv2.imshow("Blurred", blur)
+
+
+
+
+        # draw a bounding box around the detected result and display the image
+        # cv2.rectangle(frame, (startX, startY), (endX, endY), (0, 0, 255), 2)
+        # cv2.imshow(windowName, frame)
 
         if cv2.waitKey(1) == 27:
             break

@@ -3,11 +3,12 @@
 import cv2
 
 # Read the foreground image with alpha channel
-foreGroundImage = cv2.imread("C:\\Users\\Manthika\\Desktop\\opencvtest\\tattoo.png", -1)
+foreGroundImage = cv2.imread("C:\\Users\\Manthika\\Desktop\\opencvtest\\tattoo2.png", -1)
 # Read background image
 background = cv2.imread("C:\\Users\\Manthika\\Desktop\\opencvtest\\backGround.jpg")
 dim = (background.shape[1], background.shape[0])
 foreGroundImage = cv2.resize(foreGroundImage, dim)
+cv2.imshow("foreGroundImage", foreGroundImage)
 
 # Split png foreground image
 b,g,r,a = cv2.split(foreGroundImage)
@@ -35,4 +36,5 @@ outImage = cv2.add(foreground, background)
 # cv2.imwrite("outImgPy.png", outImage)
 
 cv2.imshow("outImg", outImage/255)
+cv2.imshow("foreGroundImage2", foreGroundImage)
 cv2.waitKey(0)

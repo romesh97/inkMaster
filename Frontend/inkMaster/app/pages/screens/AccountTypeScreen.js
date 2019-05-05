@@ -1,5 +1,11 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity
+} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Home extends React.Component {
   static navigationOptions = {
@@ -38,12 +44,14 @@ export default class Home extends React.Component {
     );
   }
 
-  _showSignInArtist = () => {
-    this.props.navigation.navigate("SignIn", { type: "Artist" });
+  _showSignInArtist = async () => {
+      await AsyncStorage.setItem('AccountType', 'Artist');
+      this.props.navigation.navigate('SignIn', { type:'Artist' });
   };
 
-  _showSignInCustomer = () => {
-    this.props.navigation.navigate("SignIn", { type: "Customer" });
+  _showSignInCustomer = async () => {
+      await AsyncStorage.setItem('AccountType', 'Customer');
+      this.props.navigation.navigate('SignIn', { type:'Customer' });
   };
 }
 

@@ -6,10 +6,10 @@ export default class Logo extends React.Component {
     return (
       <View style={styles.container}>
         <Image
-          style={{ width: 40, height: 70 }}
+          style={{ width: 200, height: 145 }}
           source={require("inkMaster/app/images/LogoReal.png")}
         />
-        <Text style={styles.logoText}>Welcome to inkMaster.</Text>
+        <Text style={styles.logoText}>Welcome to inkMaster</Text>
       </View>
     );
   }

@@ -99,26 +99,22 @@ const ArtistAppStack = createBottomTabNavigator(
   }
 );
 
-const AuthStack = createStackNavigator(
-  {
-    AccountType : AccountTypeScreen, 
-    SignIn: SignInScreen, 
-    SignUp :  SignUpScreen 
-  }
-);
+const AuthStack = createStackNavigator({
+  AccountType: AccountTypeScreen,
+  SignIn: SignInScreen,
+  SignUp: SignUpScreen
+});
 
 export default createAppContainer(
-
   createSwitchNavigator(
     {
       AuthLoading: AuthLoading,
       CustomerApp: CustomerAppStack,
       ArtistApp: ArtistAppStack,
-      Auth: AuthStack,
+      Auth: AuthStack
     },
     {
-      initialRouteName: 'AuthLoading',
+      initialRouteName: "AuthLoading"
     }
   )
-
 );

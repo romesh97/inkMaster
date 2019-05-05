@@ -14,6 +14,8 @@ import SignUpScreen from './screens/SignUpScreen';
 // import HomeScreen from './screens/HomeScreen';
 import GallerySample from './screens/GallerySample';
 import UpdateAccInfo from './screens/UpdateAccInfo';
+import Appointments from './screens/Appointments';
+import ImageUpload from './screens/ImageUpload';
 import ArtistHomeScreen from './screens/Artist/ArtistHomeScreen';
 import CustomerHomeScreen from './screens/Customer/CustomerHomeScreen';
 
@@ -39,6 +41,9 @@ const CustomerAppStack = createBottomTabNavigator(
   { 
     Home: CustomerHomeScreen, 
     Gallery: GallerySample,
+    UpdateAccInfo: UpdateAccInfo,
+    Appointments: Appointments,
+    ImageUpload: ImageUpload
     Settings: UpdateAccInfo
   },
   {

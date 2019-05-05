@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Home extends React.Component {
 
@@ -33,11 +34,13 @@ export default class Home extends React.Component {
     );
   }
 
-  _showSignInArtist = () => {
+  _showSignInArtist = async () => {
+      await AsyncStorage.setItem('AccountType', 'Artist');
       this.props.navigation.navigate('SignIn', { type:'Artist' });
   };
 
-  _showSignInCustomer = () => {
+  _showSignInCustomer = async () => {
+      await AsyncStorage.setItem('AccountType', 'Customer');
       this.props.navigation.navigate('SignIn', { type:'Customer' });
   };
 

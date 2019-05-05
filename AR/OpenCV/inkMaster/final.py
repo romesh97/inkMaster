@@ -94,7 +94,7 @@ def main():
         # Read background image
         background = cropped
         dim = (background.shape[1], background.shape[0])
-        foreGroundImage = cv2.resize(foreGroundImage, dim)
+        foreGroundImage = cv2.resize(foreGroundImage, dim, interpolation = cv2.INTER_AREA)
 
         # Split png foreground image
         a = foreGroundImage[:, :, 3]

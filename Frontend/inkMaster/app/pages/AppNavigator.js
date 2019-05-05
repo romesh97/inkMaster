@@ -12,12 +12,16 @@ import SignUpScreen from './screens/SignUpScreen';
 import HomeScreen from './screens/HomeScreen';
 import GallerySample from './screens/GallerySample';
 import UpdateAccInfo from './screens/UpdateAccInfo';
+import Appointments from './screens/Appointments';
+import ImageUpload from './screens/ImageUpload';
 
 const AppStack = createStackNavigator(
   { 
     Home: HomeScreen, 
     Gallery: GallerySample,
-    UpdateAccInfo: UpdateAccInfo 
+    UpdateAccInfo: UpdateAccInfo,
+    Appointments: Appointments,
+    ImageUpload: ImageUpload
   }
 );
 

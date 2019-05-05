@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="210e39b9-8f3b-4382-b198-ecf2202a335c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/inkMaster/app/components/Logo.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/inkMaster/app/components/Logo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Frontend/inkMaster/app/pages/AppNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/inkMaster/app/pages/AppNavigator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/inkMaster/app/pages/screens/AccountTypeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/inkMaster/app/pages/screens/AccountTypeScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/inkMaster/app/pages/screens/SignInScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/inkMaster/app/pages/screens/SignInScreen.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Frontend/inkMaster/app/pages/screens/SignUpScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/inkMaster/app/pages/screens/SignUpScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/inkMaster/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/inkMaster/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/inkMaster/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/inkMaster/package.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,9 +30,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -65,21 +67,21 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.3296131" />
-      <window_info id="Structure" side_tool="true" />
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="Resources Explorer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
       <window_info id="Captures" order="0" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="TODO" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Palette&#9;" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.16145833" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Designer" order="4" />
+      <window_info id="Resources Explorer" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="TODO" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="2" />
+      <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Theme Preview" order="1" />
+      <window_info anchor="right" id="Palette&#9;" order="2" />
     </layout>
   </component>
 </project>

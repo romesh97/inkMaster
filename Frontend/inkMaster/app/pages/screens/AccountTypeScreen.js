@@ -1,18 +1,15 @@
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity
-} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import React, { Component } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default class Home extends React.Component {
   static navigationOptions = {
     title: "Choose an account to continue!",
     headerStyle: {
-      backgroundColor: "#979A9A"
-    }
+      backgroundColor: "#000000"
+    },
+    headerTintColor: "#ffffff"
   };
 
   render() {
@@ -45,13 +42,13 @@ export default class Home extends React.Component {
   }
 
   _showSignInArtist = async () => {
-      await AsyncStorage.setItem('AccountType', 'Artist');
-      this.props.navigation.navigate('SignIn', { type:'Artist' });
+    await AsyncStorage.setItem("AccountType", "Artist");
+    this.props.navigation.navigate("SignIn", { type: "Artist" });
   };
 
   _showSignInCustomer = async () => {
-      await AsyncStorage.setItem('AccountType', 'Customer');
-      this.props.navigation.navigate('SignIn', { type:'Customer' });
+    await AsyncStorage.setItem("AccountType", "Customer");
+    this.props.navigation.navigate("SignIn", { type: "Customer" });
   };
 }
 

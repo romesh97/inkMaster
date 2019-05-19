@@ -3,7 +3,8 @@ import {
   createSwitchNavigator, 
   createStackNavigator,
   createBottomTabNavigator, 
-  createAppContainer 
+  createAppContainer,
+  createDrawerNavigator
 } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -43,7 +44,6 @@ const CustomerAppStack = createBottomTabNavigator(
     Gallery: GallerySample,
     UpdateAccInfo: UpdateAccInfo,
     Appointments: Appointments,
-    ImageUpload: ImageUpload
     Settings: UpdateAccInfo
   },
   {
@@ -76,6 +76,7 @@ const ArtistAppStack = createBottomTabNavigator(
   { 
     Home: ArtistHomeScreen, 
     Gallery: GallerySample,
+    ImageUpload: ImageUpload,
     Settings: UpdateAccInfo
   },
   {
@@ -103,6 +104,26 @@ const ArtistAppStack = createBottomTabNavigator(
     },
   }
 );
+
+//drawer navigator
+// const CustomerAppStack = createDrawerNavigator(
+//   { 
+//     Home: CustomerHomeScreen, 
+//     Gallery: GallerySample,
+//     UpdateAccInfo: UpdateAccInfo,
+//     Appointments: Appointments,
+//     Settings: UpdateAccInfo
+//   }
+// );
+
+// const ArtistAppStack = createDrawerNavigator(
+//   { 
+//     Home: ArtistHomeScreen, 
+//     Gallery: GallerySample,
+//     ImageUpload: ImageUpload,
+//     Settings: UpdateAccInfo
+//   }
+// );
 
 const AuthStack = createStackNavigator({
   AccountType: AccountTypeScreen,

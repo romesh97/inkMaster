@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "211941742756",
+    "firebase_url": "https://inkmastertattooapp.firebaseio.com",
+    "project_id": "inkmastertattooapp",
+    "storage_bucket": "inkmastertattooapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211941742756:android:d7ef2e4bd48f2ba0",
+        "android_client_info": {
+          "package_name": "com.inkmaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "211941742756-p7ao19eaaftlajp1gv67ukln9opcf49v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdBTZCWpwobMckUkT9k1S9N93qyo35LRw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "211941742756-p7ao19eaaftlajp1gv67ukln9opcf49v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,15 +16,16 @@ export default class HomeScreen extends React.Component {
       return (
         <View style={styles.container}>
           <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText} onPress={this._showMoreApp}>Show me more of the app</Text>
+              <Text style={styles.buttonText} onPress={this._showMoreApp}>Take me to the gallery</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText} onPress={this._showAccSettings}>Account settings</Text>
-          </TouchableOpacity>
+          </TouchableOpacity>-
+          
         </View>
 
       );
-    }
+    }.
   
     _showMoreApp = () => {
       this.props.navigation.navigate('Gallery');

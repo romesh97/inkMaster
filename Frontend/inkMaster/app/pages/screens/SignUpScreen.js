@@ -6,10 +6,13 @@ import {
   View,
   TouchableOpacity,
   StatusBar,
-  TouchableOpacity
+  Alert,
+  ToastAndroid
 } from "react-native";
 
 import Logo from "inkMaster/app/components/Logo.js";
+
+import AsyncStorage from "@react-native-community/async-storage";
 
 // import firebase from 'firebase';
 
@@ -33,6 +36,7 @@ export default class Signup extends React.Component {
 
 constructor(props){
   super(props);
+  let signedUp = false;
   this.state = {
     usernameText : '',
     emailText : '',
@@ -40,6 +44,7 @@ constructor(props){
     passwordText : '',
     loading:false,
     isLoggedIn: false,
+    signedUp: false,
     errorText: ''
   }
   this.artists = firebase.firestore().collection('artists');
@@ -47,33 +52,13 @@ constructor(props){
   this._signUp = this._signUp.bind(this);
 }
 
-    // componentWillMount() {
-    //   var config = {
-    //     apiKey: "AIzaSyCGru61A858SfGMVhhbcvN8J-rrCRueWwU",
-    //     authDomain: "inkmasterapps.firebaseapp.com",
-    //     databaseURL: "https://inkmasterapps.firebaseio.com",
-    //     projectId: "inkmasterapps",
-    //     storageBucket: "inkmasterapps.appspot.com",
-    //     messagingSenderId: "987937825635"
-    //   };
-    //   firebase.initializeApp(config);
-    //   firebase.auth().onAuthStateChanged(user=>{
-    //     if(user) {
-    //       this.setState({isLoggedIn: !this.state.isLoggedIn})
-    //     } else {
-    //       this.setState({isLoggedIn: false})
-    //     }
-    // })
-    // }
-
-
   render() {
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="#979A9A" barStyle="light-content" />
-        <Logo />
+        {/* <Logo /> */}
         <View style={styles.container}>
-            <Logo/>
+            {/* <Logo/> */}
             <View style={styles.container}>
               <TextInput style={styles.inputBox} 
                   underlineColorAndroid='rgba(0,0,0,0)' 
@@ -151,24 +136,51 @@ constructor(props){
     //     )
     this.setState({loading: true});
       const {emailText, passwordText} = this.state;
-      firebase.auth().createUserWithEmailAndPassword(emailText, passwordText)
-      .then(this.setState({
-        errorText: 'Success',
-        loading: true,
-        emailText: '',
-        passwordText: '',
-        usernameText: '',
-        contactText: '',
-        signedUp: true
-      }))
-      .catch(this.setState({
-        errorText: 'Authentication failed',
-        loading: true,
-        emailText: '',
-        passwordText: '',
-        usernameText: '',
-        contactText: '',
-      }))
+        firebase.auth().createUserWithEmailAndPassword(emailText, passwordText)
+        .then(this.setState({
+          errorText: 'Success',
+          loading: true,
+          emailText: '',
+          passwordText: '',
+          usernameText: '',
+          contactText: '',
+          signedUp: true
+        });
+        ToastAndroid.show('A pikachu appeared nearby !', ToastAndroid.SHORT);
+        )
+        .catch(error => {
+            switch(error.code) {
+                case 'auth/email-already-in-use':
+                  Alert.alert(
+                    'Error',
+                    'You have already signed up',
+                    {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
+                    { cancelable: false }
+                  )
+                break;
+                case 'auth/invalid-email':
+                  Alert.alert(
+                      'Error',
+                      'Please enter a valid email address',
+                      {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
+                      { cancelable: false }
+                    )
+                break;
+
+            // handle other codes ...
+       }) 
+      }     
+
+      // if(errorText == 'Authentication failed'){
+      //   Alert.alert(
+      //     'Error',
+      //     'Invalid email or password',
+      //     {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
+      //     { cancelable: false }
+      //   );
+
+      // }
+
 
       if(signedUp) {
           if(response == 'Customer') {
@@ -224,6 +236,13 @@ constructor(props){
           
         this.props.navigation.navigate('SignIn');
 
+      } else {
+        Alert.alert(
+          'Error',
+          'Invalid email or password',
+          {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
+          { cancelable: false }
+        )
       }
   }
 

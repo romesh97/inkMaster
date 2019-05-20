@@ -13,26 +13,54 @@ export default class CustomerHomeScreen extends React.Component {
     // static navigationOptions = {
     //   title: 'Welcome to inkMaster - Customer!',
     // };
-    state = { currentUser: null }
 
-    componentDidMount() {
-      const { currentUser } = firebase.auth()
+      constructor() {
+        super();
+        this.unsubscriber = null;
+        this.state = {
+          user: null,
+        };
+      }
 
-      this.setState({ currentUser })
-    }
+      /**
+      * Listen for any auth state changes and update component state
+      */
+      componentDidMount() {
+        this.unsubscriber = firebase.auth().onAuthStateChanged((user) => {
+          this.setState({ user });
+        });
+      }
+
+      componentWillUnmount() {
+        if (this.unsubscriber) {
+          this.unsubscriber();
+        }
+      }
+
+    // state = { currentUser: null }
+
+    // componentDidMount() {
+    //   const { currentUser } = firebase.auth()
+
+    //   this.setState({ currentUser })
+    // }
   
     render() {
-      const { currentUser } = this.state
+      // const { currentUser } = this.state
       return (
         <View style={styles.container}>
           <Text>
-            Hi {currentUser && currentUser.email}!
+            {/* Hi {currentUser && currentUser.email}! */}
+            Hi {this.state.user.email}!
           </Text>
           <Text>
             Customer
           </Text>
           <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText} onPress={this._showMoreApp}>Show me more of the app</Text>
+              <Text style={styles.buttonText} onPress={this._showGallery}>Gallery</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText} onPress={this._showScheduleAppointments}>Schedule Appointments</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText} onPress={this._showAccSettings}>Account settings</Text>
@@ -42,8 +70,12 @@ export default class CustomerHomeScreen extends React.Component {
       );
     }
   
-    _showMoreApp = () => {
+    _showGallery = () => {
       this.props.navigation.navigate('Gallery');
+    };
+
+    _showScheduleAppointments = () => {
+      this.props.navigation.navigate('Appointments');
     };
 
     _showAccSettings = () => {
@@ -55,22 +87,37 @@ export default class CustomerHomeScreen extends React.Component {
   const styles = StyleSheet.create({
     container : {
       flexGrow: 1,
-      backgroundColor:'#455a64',
+      backgroundColor:'#EBEDEF',
       alignItems:'center',
       justifyContent :'center'
     },
+
+    // button: {
+    //   width:300,
+    //   backgroundColor:'#1c313a',
+    //   borderRadius: 25,
+    //   marginVertical: 10,
+    //   paddingVertical: 13
+    // },
+    // buttonText: {
+    //   fontSize:16,
+    //   fontWeight:'500',
+    //   color:'#ffffff',
+    //   textAlign:'center'
+    // },
     button: {
-      width:300,
-      backgroundColor:'#1c313a',
-      borderRadius: 25,
+      width: 180,
+      backgroundColor: "#641E16",
+      borderColor: "black",
+      borderRadius: 10,
       marginVertical: 10,
       paddingVertical: 13
     },
     buttonText: {
-      fontSize:16,
-      fontWeight:'500',
-      color:'#ffffff',
-      textAlign:'center'
+      fontSize: 16,
+      fontWeight: "500",
+      color: "#ffffff",
+      textAlign: "center"
     }
   });
   

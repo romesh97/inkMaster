@@ -73,7 +73,6 @@ export default class Gallery extends React.Component {
             onPress={() => {this.setModalVisible(false)}}>Close</Text>
             <ImageElement imgsource={this.state.modalImage}></ImageElement>
             <Text style={styles.text} onPress={this._showAppointment}> Make an appointment </Text>
-            <Text style={styles.text} onPress={this._testingFirebase}> Firebase </Text>
           </View>
 
         </Modal>
@@ -90,6 +89,7 @@ export default class Gallery extends React.Component {
   }
   _showAppointment = () => {
     this.props.navigation.navigate('Appointments');
+    this.setModalVisible(false);
   };
 
   _testingFirebase = () => {
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
 
   text: {
     color: '#fff',
+    alignSelf:'center',
   },
 
   contentContainer:{

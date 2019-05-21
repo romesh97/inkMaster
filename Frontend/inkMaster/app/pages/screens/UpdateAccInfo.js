@@ -4,33 +4,75 @@ import {
   Text,
   View,
   StatusBar ,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import Button from 'inkMaster/app/components/Button.js';
 
 import { 
   createStackNavigator, 
   createAppContainer 
 } from 'react-navigation';
 
+import firebase from 'firebase';
+
 export default class UpdateAccInfo extends React.Component {
+
+
+    constructor(props) {
+        super(props);
+        this._signOut = this._signOut.bind(this);
+        const navigation = this.props.navigation;
+    }
 
     render() {
       return(
         <View style={styles.container}>
         
             <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText} onPress={this._signOutAsync}>Sign out</Text>
+                <Text style={styles.buttonText} onPress={this._signOut}>Sign out</Text>
             </TouchableOpacity>
 
         </View>
       );
     }
 
-    _signOutAsync = async () => {
-      await AsyncStorage.clear();
-      this.props.navigation.navigate('Auth');
+    _signOut () {
+      Alert.alert(
+              'Sign out',
+              'Are you sure you would like to sign out?',
+              [
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+                {text: 'OK', onPress: () => {
+                  console.log('Signout Completed!')
+                   firebase.auth().signOut()
+                  .then(
+                    // await AsyncStorage.clear();
+                    this.props.navigation.navigate('Auth')
+                    // _signOutAsync()
+                  //   function() {
+                  //     console.log('Signed out')
+                  // }
+                  ).catch(function(error) {
+                        Alert.alert(
+                          'Error',
+                          'An error happened while signing out',
+                          {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
+                          { cancelable: false }
+                        )
+                  });
+
+                }},
+              ],
+                { cancelable: false }
+            )
     };
+}
+
+_signOutAsync = async () => {
+  await AsyncStorage.clear();
+  this.props.navigation.navigate('Auth');
 }
 
   const styles = StyleSheet.create({

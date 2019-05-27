@@ -6,13 +6,9 @@ import {
   View
 } from 'react-native';
 
-import firebase from 'firebase';
+import firebase from 'react-native-firebase';
 
 export default class CustomerHomeScreen extends React.Component {
-
-    // static navigationOptions = {
-    //   title: 'Welcome to inkMaster - Customer!',
-    // };
 
       constructor() {
         super();
@@ -22,9 +18,6 @@ export default class CustomerHomeScreen extends React.Component {
         };
       }
 
-      /**
-      * Listen for any auth state changes and update component state
-      */
       componentDidMount() {
         this.unsubscriber = firebase.auth().onAuthStateChanged((user) => {
           this.setState({ user });
@@ -37,21 +30,12 @@ export default class CustomerHomeScreen extends React.Component {
         }
       }
 
-    // state = { currentUser: null }
-
-    // componentDidMount() {
-    //   const { currentUser } = firebase.auth()
-
-    //   this.setState({ currentUser })
-    // }
-  
     render() {
-      // const { currentUser } = this.state
+      const { currentUser } = this.state
       return (
         <View style={styles.container}>
           <Text>
-            {/* Hi {currentUser && currentUser.email}! */}
-            Hi {this.state.user.email}!
+            Hi {currentUser && currentUser.email}!
           </Text>
           <Text>
             Customer
@@ -91,22 +75,8 @@ export default class CustomerHomeScreen extends React.Component {
       alignItems:'center',
       justifyContent :'center'
     },
-
-    // button: {
-    //   width:300,
-    //   backgroundColor:'#1c313a',
-    //   borderRadius: 25,
-    //   marginVertical: 10,
-    //   paddingVertical: 13
-    // },
-    // buttonText: {
-    //   fontSize:16,
-    //   fontWeight:'500',
-    //   color:'#ffffff',
-    //   textAlign:'center'
-    // },
     button: {
-      width: 180,
+      width: 300,
       backgroundColor: "#641E16",
       borderColor: "black",
       borderRadius: 10,

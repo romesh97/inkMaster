@@ -6,13 +6,10 @@ import {
   View
 } from 'react-native';
 
-import firebase from 'firebase';
+import firebase from 'react-native-firebase';
 
 export default class ArtistHomeScreen extends React.Component {
 
-    // static navigationOptions = {
-    //   title: 'Welcome to inkMaster - Artist!',
-    // };
       constructor() {
         super();
         this.unsubscriber = null;
@@ -21,37 +18,14 @@ export default class ArtistHomeScreen extends React.Component {
         };
       }
 
-      /**
-      * Listen for any auth state changes and update component state
-      */
-      componentDidMount() {
-        this.unsubscriber = firebase.auth().onAuthStateChanged((user) => {
-          this.setState({ user });
-        });
-      }
+        state = { currentUser: firebase.auth() }
 
-      componentWillUnmount() {
-        if (this.unsubscriber) {
-          this.unsubscriber();
-        }
-      }
-
-
-    // state = { currentUser: null }
-
-    // componentDidMount() {
-    //   const { currentUser } = firebase.auth()
-
-    //   this.setState({ currentUser })
-    // }
-    
-  
     render() {
-      // const { currentUser } = this.state
+      const { currentUser } = this.state
       return (
         <View style={styles.container}>
           <Text>
-            Hi {this.state.user.email}!
+            Hi {currentUser && currentUser.email}!
           </Text>
           <Text>
             Artist
@@ -74,8 +48,8 @@ export default class ArtistHomeScreen extends React.Component {
       this.props.navigation.navigate('Gallery');
     };
 
-    _showScheduleAppointments = () => {
-      this.props.navigation.navigate('Appointments');
+    _showImageUpload = () => {
+      this.props.navigation.navigate('ImageUpload');
     };
 
     _showAccSettings = () => {
@@ -91,22 +65,8 @@ export default class ArtistHomeScreen extends React.Component {
       alignItems:'center',
       justifyContent :'center'
     },
-
-    // button: {
-    //   width:300,
-    //   backgroundColor:'#1c313a',
-    //   borderRadius: 25,
-    //   marginVertical: 10,
-    //   paddingVertical: 13
-    // },
-    // buttonText: {
-    //   fontSize:16,
-    //   fontWeight:'500',
-    //   color:'#ffffff',
-    //   textAlign:'center'
-    // },
     button: {
-      width: 180,
+      width: 300,
       backgroundColor: "#641E16",
       borderColor: "black",
       borderRadius: 10,

@@ -14,8 +14,6 @@ import Logo from "inkMaster/app/components/Logo.js";
 
 import AsyncStorage from "@react-native-community/async-storage";
 
-// import firebase from 'firebase';
-
 import firebase from 'react-native-firebase';
 
 export default class Signup extends React.Component {
@@ -27,16 +25,9 @@ export default class Signup extends React.Component {
     },
     headerTintColor: "#ffffff"
   };
-  
-  // static navigationOptions = ({ navigation }) => {
-  //   return {
-  //     title: navigation.getParam('type', 'DEFAULT_TYPE'),
-  //   };
-  // };
 
 constructor(props){
   super(props);
-  let signedUp = false;
   this.state = {
     usernameText : '',
     emailText : '',
@@ -56,9 +47,7 @@ constructor(props){
     return (
       <View style={styles.container}>
         <StatusBar backgroundColor="#979A9A" barStyle="light-content" />
-        {/* <Logo /> */}
         <View style={styles.container}>
-            {/* <Logo/> */}
             <View style={styles.container}>
               <TextInput style={styles.inputBox} 
                   underlineColorAndroid='rgba(0,0,0,0)' 
@@ -121,23 +110,14 @@ constructor(props){
 
   _signUp = async () => {
       const response = await AsyncStorage.getItem('AccountType');
-    // Alert.alert(
-    //     'Registration Nearly Complete',
-    //     'Are you sure you would like to submit this form?',
-    //     [
-    //       {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-    //       {text: 'OK', onPress: () => {
-    //         console.log('Signup Completed!')
-    //               //signup function
-    //         this.props.navigation.navigate('SignIn');
-    //       }},
-    //     ],
-    //       { cancelable: false }
-    //     )
     this.setState({loading: true});
       const {emailText, passwordText} = this.state;
+      if(emailText == '' || passwordText == '') {
+        ToastAndroid.show('Please fill in email and password', ToastAndroid.SHORT);
+      } else {
         firebase.auth().createUserWithEmailAndPassword(emailText, passwordText)
-        .then(this.setState({
+        .then(
+          this.setState({
           errorText: 'Success',
           loading: true,
           emailText: '',
@@ -145,44 +125,22 @@ constructor(props){
           usernameText: '',
           contactText: '',
           signedUp: true
-        });
-        ToastAndroid.show('A pikachu appeared nearby !', ToastAndroid.SHORT);
+        })
         )
         .catch(error => {
             switch(error.code) {
                 case 'auth/email-already-in-use':
-                  Alert.alert(
-                    'Error',
-                    'You have already signed up',
-                    {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
-                    { cancelable: false }
-                  )
+                  ToastAndroid.show('You have already signed up', ToastAndroid.SHORT);
                 break;
                 case 'auth/invalid-email':
-                  Alert.alert(
-                      'Error',
-                      'Please enter a valid email address',
-                      {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
-                      { cancelable: false }
-                    )
+                  ToastAndroid.show('Please enter a valid email address', ToastAndroid.SHORT);
                 break;
+          }
+        }
+       )
+      }      
 
-            // handle other codes ...
-       }) 
-      }     
-
-      // if(errorText == 'Authentication failed'){
-      //   Alert.alert(
-      //     'Error',
-      //     'Invalid email or password',
-      //     {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
-      //     { cancelable: false }
-      //   );
-
-      // }
-
-
-      if(signedUp) {
+      if(this.signedUp) {
           if(response == 'Customer') {
             this.customers.add({
                 username: this.state.usernameText,
@@ -234,15 +192,6 @@ constructor(props){
             )
           } 
           
-        this.props.navigation.navigate('SignIn');
-
-      } else {
-        Alert.alert(
-          'Error',
-          'Invalid email or password',
-          {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
-          { cancelable: false }
-        )
       }
   }
 

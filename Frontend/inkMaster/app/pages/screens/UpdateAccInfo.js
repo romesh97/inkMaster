@@ -8,14 +8,13 @@ import {
   Alert
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import Button from 'inkMaster/app/components/Button.js';
 
 import { 
   createStackNavigator, 
   createAppContainer 
 } from 'react-navigation';
 
-import firebase from 'firebase';
+import firebase from 'react-native-firebase';
 
 export default class UpdateAccInfo extends React.Component {
 
@@ -48,12 +47,7 @@ export default class UpdateAccInfo extends React.Component {
                   console.log('Signout Completed!')
                    firebase.auth().signOut()
                   .then(
-                    // await AsyncStorage.clear();
                     this.props.navigation.navigate('Auth')
-                    // _signOutAsync()
-                  //   function() {
-                  //     console.log('Signed out')
-                  // }
                   ).catch(function(error) {
                         Alert.alert(
                           'Error',
@@ -77,22 +71,23 @@ _signOutAsync = async () => {
 
   const styles = StyleSheet.create({
     container : {
-      backgroundColor:'#455a64',
+      backgroundColor:'#EBEDEF',
       flex: 1,
       alignItems:'center',
       justifyContent :'center'
     },
     button: {
-      width:300,
-      backgroundColor:'#1c313a',
-      borderRadius: 25,
+      width: 300,
+      backgroundColor: "#641E16",
+      borderColor: "black",
+      borderRadius: 10,
       marginVertical: 10,
       paddingVertical: 13
     },
     buttonText: {
-      fontSize:16,
-      fontWeight:'500',
-      color:'#ffffff',
-      textAlign:'center'
+      fontSize: 16,
+      fontWeight: "500",
+      color: "#ffffff",
+      textAlign: "center"
     }
   });

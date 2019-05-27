@@ -5,12 +5,15 @@ import {
   TextInput,
   View,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
+  Alert,
+  ToastAndroid
 } from "react-native";
 
 import AsyncStorage from "@react-native-community/async-storage";
 
-import firebase from 'firebase';
+import firebase from 'react-native-firebase';
+
 import Logo from "inkMaster/app/components/Logo.js";
 
 export default class Signin extends React.Component {
@@ -34,21 +37,13 @@ export default class Signin extends React.Component {
         errorText: ''
       }
       this._signIn = this._signIn.bind(this);
-      // const params = this.props.navigation.state.params;
       const navigation = this.props.navigation;
     }
-  
-  // static navigationOptions = ({ navigation }) => {
-  //   return {
-  //     title: navigation.getParam('type', 'DEFAULT_TYPE'),
-  //   };
-  // };
 
 	render() {
 		return(
 			<View style={styles.container}>
           <StatusBar backgroundColor="#979A9A" barStyle="light-content" />
-          {/* <Logo/> */}
           <View style={styles.container}>
             <TextInput style={styles.inputBox} 
                   underlineColorAndroid='rgba(0,0,0,0)' 
@@ -86,16 +81,12 @@ export default class Signin extends React.Component {
       )
   }
   
-  _signIn () {
+  _signIn = async () => {
+      // await AsyncStorage.clear();
       this.setState({loading: true});
       const {emailText, passwordText} = this.state;
       if(emailText == '' || passwordText == '') {
-        Alert.alert(
-          'Error',
-          'Please fill in email and password',
-          {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
-          { cancelable: false }
-        )
+        ToastAndroid.show('Please fill in email and password', ToastAndroid.SHORT);
       } else {
       firebase.auth().signInWithEmailAndPassword(emailText, passwordText)
       .then(this.setState({
@@ -103,61 +94,35 @@ export default class Signin extends React.Component {
           loading: false,
           emailText: '',
           passwordText: ''
-          // if (params.type == 'Artist') 
-          //     navigation.navigate('ArtistApp')
-          // else if (params.type == 'Customer')
-          //   navigation.navigate('CustomerApp')
         })
-        // _signInNavigate();
       )
       .catch(error => {
             switch(error.code) {
                 case 'auth/user-not-found':
-                  Alert.alert(
-                    'Error',
-                    'You havent signed up',
-                    {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
-                    { cancelable: false }
-                  )
+                ToastAndroid.show('You havent signed up yet', ToastAndroid.SHORT);
                 break;
                 case 'auth/invalid-email':
-                  Alert.alert(
-                      'Error',
-                      'Please enter a valid email address',
-                      {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
-                      { cancelable: false }
-                    )
+                ToastAndroid.show('Please enter a valid email address', ToastAndroid.SHORT);
                 break;
                 case 'auth/wrong-password':
-                  Alert.alert(
-                      'Error',
-                      'Please enter the correct password',
-                      {text: 'OK', onPress: () => console.log('OK pressed'), style: 'cancel'},
-                      { cancelable: false }
-                    )
+                ToastAndroid.show('Please enter the correct password', ToastAndroid.SHORT);
                 break;
-
-            // handle other codes ...
-       })
-      }
+            }
+        }
+      )
       
       const params = this.props.navigation.state.params;
         if (params.type == 'Artist') 
             this.props.navigation.navigate('ArtistApp')
         else if (params.type == 'Customer')
             this.props.navigation.navigate('CustomerApp')
-  };
-
-    // _signInNavigate() {
-    //     if (params.type == 'Artist') 
-    //         navigation.navigate('ArtistApp')
-    //     else if (params.type == 'Customer')
-    //       navigation.navigate('CustomerApp')
-    // }
+    }
+  }
 
   _showSignUp = () => {
     this.props.navigation.navigate("SignUp");
   };
+
 }
 
 const styles = StyleSheet.create({

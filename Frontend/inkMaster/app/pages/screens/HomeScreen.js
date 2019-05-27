@@ -25,7 +25,7 @@ export default class HomeScreen extends React.Component {
         </View>
 
       );
-    }.
+    }
   
     _showMoreApp = () => {
       this.props.navigation.navigate('Gallery');

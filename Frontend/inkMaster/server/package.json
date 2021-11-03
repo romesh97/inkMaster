@@ -23,7 +23,7 @@
     "react-native": "0.59.3",
     "react-native-gesture-handler": "^1.1.0",
     "react-navigation": "^3.7.1",
-    "validator": "^10.11.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.11"
